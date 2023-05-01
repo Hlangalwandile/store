@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,15 +15,14 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/','index')->name('home');
 });
 
 Auth::routes([
     'verify'=> true
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('products')->controller(ProductController::class)->group(function(){
     Route::get('/','index')->name('products');
