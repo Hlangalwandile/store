@@ -33,10 +33,7 @@
               <p class="card-title"> {{$product->name ?? ''}}</p>
               <p class="card-text"> {{$product->description ?? ''}}</p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
+                <a href="{{route('item.show',$product->id)}}" class="btn">open</a>
                 <small class="text-muted">R{{$product->price ?? ''}}</small>
               </div>
             </div>

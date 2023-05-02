@@ -28,5 +28,13 @@ class HomeController extends Controller
         $products = Product::all();
         $categories = Category::all();
         return view('home',['products'=>$products,'categories'=>$categories]);
+
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('product.show',['product'=>$product,'categories'=>$categories]);
     }
 }
