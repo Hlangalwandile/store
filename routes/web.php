@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/','index')->name('home');
+    Route::get('/home','index')->name('home');
 });
 
 Auth::routes([
@@ -28,6 +29,7 @@ Route::prefix('categories')->controller(CategoryController::class)->group(functi
     Route::get('/category','show')->name('category.show');
     Route::get('/create','create')->name('category.create');
     Route::get('/edit/{id}','edit')->name('category.edit');
+    Route::POST('/update','update')->name('category.update');
     Route::POST('/store','store')->name('category.store');
     Route::POST('/destroy','destroy')->name('category.destroy');
 });

@@ -22,10 +22,11 @@
                         <td>{{$category->name}}</td>
                         <td>{{$category->parent_id}}</td>
                         <td>
-                        <a href="{{route('product.edit',$category->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="{{ route('category.destroy',$category->id) }}" method="POST">
+                        <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{{ route('category.destroy') }}" method="POST">
                             @csrf
-                            
+                           
+                            <input type="hidden" name="category_id" value="{{$category->id}}">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this category?')"><i class="lnr lnr-trash"></i> Delete</button>
                         </form>
                         </td>

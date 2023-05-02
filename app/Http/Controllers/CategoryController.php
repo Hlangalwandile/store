@@ -30,10 +30,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        
-
         // Create new category with form data
         $category = new Category();
         $category->name = request('name');
@@ -55,28 +53,35 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
-        return view('category.edit');
+        $category = Category::find($id);
+        $categories = Category::all();
+        return view('category.edit',['category'=>$category,'categories'=>$categories]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update()
     {
-        //
+        $id = request('category_id');
+        $category = Category::find($id);
+        $category->name = request('name');
+        $category->parent_id = request('parent_id');
+        $category->save();
+        $message = 'Category '.request('name').' updated successfully.';
+        return redirect(route('categories'))->with('success', $message);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy()
     {
-        
+        $id = request('category_id');
         $category = Category::find($id);
         $category->delete();
-        return redirect()->route('products');
+        return redirect()->route('categories');
     }
 }

@@ -32,31 +32,26 @@ class ProductController extends Controller
     {
          // Validate the form data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'category.*' => 'exists:categories,id',
-            'status' => 'required|in:1,0',
         ]);
 
         // Handle the file upload and store the product image
-        $image = $request->file('image');
-        $filename = time() . '.' . $image->getClientOriginalExtension();
-        $path = public_path('images/products/' . $filename);
-        Image::make($image->getRealPath())->resize(500, 500)->save($path);
+        // $image = $request->file('image');
+        // $filename = time() . '.' . $image->getClientOriginalExtension();
+        // $path = public_path('images/products/' . $filename);
+        // Image::make($image->getRealPath())->resize(500, 500)->save($path);
 
         // Create a new product object and store it in the database
         $product = new Product();
-        $product->name = $validatedData['name'];
-        $product->description = $validatedData['description'];
-        $product->price = $validatedData['price'];
-        $product->image = $filename;
-        $product->status = $validatedData['status'];
+        $product->name = request('name');
+        $product->description = request('description');
+        $product->price = request('price');
+        // $product->image = $filename;
+        $product->status = request('status');
         $product->save();
 
         // Attach the selected categories to the new product
-        $product->categories()->attach($validatedData['category']);
+        $product->categories()->attach(request('category'));
 
         // Redirect to the products index page with a success message
         $message = 'Product created successfully.';
@@ -82,8 +77,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update($id)
     {
+
         $message = 'Product successfully updated.';
         return redirect(route('product.edit'))->with('success',$message);
     }
