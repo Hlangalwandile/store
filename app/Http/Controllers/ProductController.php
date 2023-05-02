@@ -19,7 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('product.index',['products'=>$products]);
+        $categories = Category::all();
+        return view('product.index',['products'=>$products,'categories'=>$categories]);
     }
 
     /**
@@ -36,39 +37,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('status'));
-         // Validate the form data
-        // $validatedData = $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
-
-        // Handle the file upload and store the product image
-        // $image = $request->file('image');
-        // $filename = time() . '.' . $image->getClientOriginalExtension();
-        // $path = public_path('images/products/' . $filename);
-        // Image::make($image->getRealPath())->resize(500, 500)->save($path);
-
-        // Create a new product object and store it in the database
         $product = new Product();
+        $request->validate([
+            'image'=>['nullable','mimes:jpg,jpeg,png,gif','max:2048']
+        ]);
+
         $product->name = request('name');
         $product->description = request('description');
         $product->price = request('price');
-        // $product->image = $filename;
         $product->status = request('status');
-        $product->save();
-
-        // try {
-
-        //     // Attach the selected categories to the new product
-        //     $product->categories = categories()->attach(request('category'));
-          
-        //   } catch (\Exception $e) {
-          
-        //       // Redirect to the products index page with a success message
-        //     $message = 'categories not loaded';
-        //     return redirect(route('products'))->with('error',$message);
-        //   }
+        $product->categories = json_encode(request('category'));
         
+        if($request->file('image')){
+            $imageLink = $request->file('image')->store('images','public');
+            $image->move(public_path('/images'),$image_name);
+            $product->image = $imageLink;
+        }
+
+        $product->save();
 
         // Redirect to the products index page with a success message
         $message = 'Product created successfully.';
@@ -86,19 +72,30 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('product.edit');
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('product.edit',['product'=>$product,'categories'=>$categories]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update($id)
+    public function update()
     {
+       
+        $id =  request('product_id');
+        $product = Product::find($id);
+        $product->name = request('name');
+        $product->description = request('description');
+        $product->price = request('price');
+        // $product->image = $filename;
+        $product->status = request('status');
+        $product->save();
 
         $message = 'Product successfully updated.';
-        return redirect(route('product.edit'))->with('success',$message);
+        return redirect(route('product.edit',$id))->with('success',$message);
     }
 
     /**
@@ -109,4 +106,5 @@ class ProductController extends Controller
         $message = 'Product deleted successfully.';
         return redirect(route('products'))->with('success',$message);
     }
+
 }

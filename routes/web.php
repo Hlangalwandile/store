@@ -23,6 +23,7 @@ Route::prefix('products')->controller(ProductController::class)->group(function(
     Route::get('/create','create')->name('product.create');
     Route::get('/edit/{id}','edit')->name('product.edit');
     Route::POST('/store','store')->name('product.store');
+    Route::POST('/update','update')->name('product.update');
 });
 
 Route::prefix('categories')->controller(CategoryController::class)->group(function(){

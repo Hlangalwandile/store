@@ -30,12 +30,27 @@
                   <td>{{ $product['description'] ?? '' }}</td>
                   <td>R {{ $product['price'] }}</td>
                   <td><img src="{{ $product['image'] ?? '' }}" alt="Product Image"></td>
-                  <td>{{ $product['category_name'] ?? '' }}</td>
+                  <td>
+                    @isset($product->categories)
+                      @php
+                          $cat_list = json_decode($product['categories']);
+                        @endphp
+                        @foreach ($categories as $cat)
+                            @isset($cat_list)
+                            @if (in_array($cat->id,$cat_list))
+                              {{$cat->name}},
+                              @else
+                            @endisset
+                            @endif
+                        @endforeach
+                    @endisset
+                   
+                  </td>
                   <td>{{ $product['status'] ?? '' }}</td>
                   <td>{{ $product['created_at'] ?? '' }}</td>
                   <td>{{ $product['updated_at'] ?? '' }}</td>
                   <td>
-                      <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                      <a href="{{route('product.edit',$product->id)}}" class="btn btn-sm btn-primary">Edit</a>
                       <a href="#" class="btn btn-sm btn-danger">Delete</a>
                   </td>
               </tr>

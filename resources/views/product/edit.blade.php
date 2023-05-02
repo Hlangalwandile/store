@@ -5,7 +5,7 @@
     <div class="card-body">
         <form method="POST" action="{{ route('product.update') }}">
             @csrf
-        
+            <input type="hidden" name="product_id" value="{{$product->id}}">
             <div class="form-group mb-3">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
@@ -30,7 +30,11 @@
               <label for="categories">Categories</label>
               <select class="form-control" id="categories" name="categories[]" multiple>
                 @foreach ($categories as $category)
-                  <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $category->name }}</option>
+                  @if(isset($product->categories))
+                  <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $category->name }}</option>     
+                  @else
+                  <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  @endif
                 @endforeach
               </select>
             </div>
@@ -38,8 +42,8 @@
             <div class="form-group mb-3">
               <label for="status">Status</label>
               <select class="form-control" id="status" name="status" required>
-                <option value="draft" {{ $product->status == 'draft' ? 'selected' : '' }}>Draft</option>
-                <option value="published" {{ $product->status == 'published' ? 'selected' : '' }}>Published</option>
+                <option value="0" {{ $product->status == 0 ? 'selected' : '' }}>Draft</option>
+                <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Published</option>
               </select>
             </div>
           
