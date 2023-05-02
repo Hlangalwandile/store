@@ -23,7 +23,8 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('category.create');
+        $categories = Category::all();
+        return view('category.create',['categories'=>$categories]);
     }
 
     /**
@@ -31,7 +32,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+
+        // Create new category with form data
+        $category = new Category();
+        $category->name = request('name');
+        $category->parent_id = request('parent_id');
+        $category->save();
+        $message = 'Category '.request('name').' created successfully.';
+        return redirect(route('categories'))->with('success', $message);
     }
 
     /**
@@ -65,7 +74,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        
+        $category = Category::find($id);
+        $category->delete();
         return redirect()->route('products');
     }
 }
