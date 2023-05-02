@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Auth;
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+    
     public function index()
     {
-
-        return view('product.index');
+        $products = Product::all();
+        return view('product.index',['products'=>$products]);
     }
 
     /**
@@ -51,8 +57,18 @@ class ProductController extends Controller
         $product->status = request('status');
         $product->save();
 
-        // Attach the selected categories to the new product
-        $product->categories = categories()->attach(request('category'));
+        // try {
+
+        //     // Attach the selected categories to the new product
+        //     $product->categories = categories()->attach(request('category'));
+          
+        //   } catch (\Exception $e) {
+          
+        //       // Redirect to the products index page with a success message
+        //     $message = 'categories not loaded';
+        //     return redirect(route('products'))->with('error',$message);
+        //   }
+        
 
         // Redirect to the products index page with a success message
         $message = 'Product created successfully.';

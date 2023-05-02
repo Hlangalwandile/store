@@ -25,7 +25,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="category">Categories</label>
-                <select multiple class="form-control" id="category" name="category[]" required>
+                <select multiple class="form-control" id="category" name="category[]">
                     <option value="">no category</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>

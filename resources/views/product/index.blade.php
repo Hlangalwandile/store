@@ -23,36 +23,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Product 1</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                <td>$9.99</td>
-                <td><img src="/path/to/image.jpg" alt="Product Image"></td>
-                <td>Category 1</td>
-                <td>Active</td>
-                <td>2022-01-01 12:00:00</td>
-                <td>2022-01-01 12:00:00</td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                  <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                </td>
+              @foreach ($products as $product)
+                <tr>
+                  <td>{{ $product['id'] }}</td>
+                  <td>{{ $product['name'] }}</td>
+                  <td>{{ $product['description'] ?? '' }}</td>
+                  <td>R {{ $product['price'] }}</td>
+                  <td><img src="{{ $product['image'] ?? '' }}" alt="Product Image"></td>
+                  <td>{{ $product['category_name'] ?? '' }}</td>
+                  <td>{{ $product['status'] ?? '' }}</td>
+                  <td>{{ $product['created_at'] ?? '' }}</td>
+                  <td>{{ $product['updated_at'] ?? '' }}</td>
+                  <td>
+                      <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                      <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                  </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Product 2</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                <td>$19.99</td>
-                <td><img src="/path/to/image.jpg" alt="Product Image"></td>
-                <td>Category 2</td>
-                <td>Inactive</td>
-                <td>2022-01-02 12:00:00</td>
-                <td>2022-01-03 12:00:00</td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                  <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-              </tr>
+              @endforeach
               <!-- Add more rows for additional products -->
             </tbody>
           </table>
