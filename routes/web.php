@@ -13,8 +13,7 @@ Route::controller(HomeController::class)->group(function(){
 });
 
 Auth::routes([
-    // 'verify'=> true,
-    'role'=> 1
+    'verify'=> true,
 ]);
 
 

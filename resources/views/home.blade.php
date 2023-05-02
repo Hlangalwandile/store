@@ -7,8 +7,8 @@
         <p class="lead text-muted">
             Discover the future of technology at Store! From smartphones to laptops, our collection is carefully curated to bring you the latest and greatest. Shop now for the best in tech!</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          {{-- <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a> --}}
         </p>
       </div>
     </div>
