@@ -30,10 +30,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input('status'));
          // Validate the form data
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // $validatedData = $request->validate([
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
 
         // Handle the file upload and store the product image
         // $image = $request->file('image');
@@ -51,7 +52,7 @@ class ProductController extends Controller
         $product->save();
 
         // Attach the selected categories to the new product
-        $product->categories()->attach(request('category'));
+        $product->categories = categories()->attach(request('category'));
 
         // Redirect to the products index page with a success message
         $message = 'Product created successfully.';
