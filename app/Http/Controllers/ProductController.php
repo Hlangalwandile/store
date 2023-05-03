@@ -87,11 +87,21 @@ class ProductController extends Controller
        
         $id =  request('product_id');
         $product = Product::find($id);
+        $request->validate([
+            'image'=>['nullable','mimes:jpg,jpeg,png,gif','max:2048']
+        ]);
+
         $product->name = request('name');
         $product->description = request('description');
         $product->price = request('price');
-        // $product->image = $filename;
         $product->status = request('status');
+        $product->categories = json_encode(request('category'));
+        
+        if($request->file('image')){
+            $imageLink = $request->file('image')->store('images','public');
+            $product->image = $imageLink;
+        }
+
         $product->save();
 
         $message = 'Product successfully updated.';
