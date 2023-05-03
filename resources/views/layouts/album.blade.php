@@ -52,13 +52,13 @@
                     <h6><a href="{{ url('/products') }}" class="text-white">Dashboard</a></h6>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit">Logout</button>
+                        <button class="btn btn-outline-light text-white" type="submit">Logout</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}">Log in</a>
+                    <a class="nav-link text-white" href="{{ route('login') }}">Log in</a>
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Register</a>
+                        <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
                     @endif
                 @endauth
             </div>
@@ -85,7 +85,24 @@
 </header>
 
 <main>
-
+  @if(session()->has('success'))
+  @php
+      $message = session('success');
+  @endphp
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> {{$message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif 
+  @if (session()->has('error'))
+      @php
+          $message = session('error');
+      @endphp
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {{$message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+@endif
   @yield('content')
 
 </main>
