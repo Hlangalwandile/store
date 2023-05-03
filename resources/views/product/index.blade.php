@@ -29,7 +29,8 @@
                   <td>{{ $product['name'] }}</td>
                   <td>{{ $product['description'] ?? '' }}</td>
                   <td>R {{ $product['price'] }}</td>
-                  <td><img src="/storage/{{ $product->image ?? '' }}" alt="Product Image" height="100px"></td>
+                  <td><img src="{{asset('storage/'.$product->image)}}" alt="Product Image" height="100px"></td>
+                  {{-- <td><img src="/storage/{{ $product->image ?? '' }}" alt="Product Image" height="100px"></td> --}}
                   <td>
                     @isset($product->categories)
                       @php
