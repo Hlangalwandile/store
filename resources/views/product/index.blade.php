@@ -38,7 +38,7 @@
                         @foreach ($categories as $cat)
                             @isset($cat_list)
                             @if (in_array($cat->id,$cat_list))
-                              {{$cat->name}},
+                              {{$cat->name}}
                               @else
                             @endisset
                             @endif

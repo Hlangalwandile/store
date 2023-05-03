@@ -27,11 +27,19 @@
             </div>
           
             <div class="form-group mb-3">
-              <label for="categories">Categories</label>
-              <select class="form-control" id="categories" name="categories[]" multiple>
+              <label for="category">Categories</label>
+              <select class="form-control" id="category" name="category[]" multiple>
                 @foreach ($categories as $category)
                   @if(isset($product->categories))
-                  <option value="{{ $category->id }}" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $category->name }}</option>     
+                  @php
+                       $selected = '';
+                      if(is_array($product->categories) && in_array($category->id,$product->categories)){
+                        $selected = 'selected';
+                      } else {
+                        $selected = '';
+                      }
+                  @endphp
+                  <option value="{{ $category->id }}" {{$selected}} >{{ $category->name }}</option>     
                   @else
                   <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endif
