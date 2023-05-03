@@ -33,7 +33,8 @@
                   @if(isset($product->categories))
                   @php
                        $selected = '';
-                      if(is_array($product->categories) && in_array($category->id,$product->categories)){
+                       $product_categories = json_decode($product->categories);
+                      if(in_array($category->id,$product_categories)){
                         $selected = 'selected';
                       } else {
                         $selected = '';
