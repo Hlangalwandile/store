@@ -23,6 +23,7 @@ Route::middleware('role:1')->prefix('products')->controller(ProductController::c
     Route::get('/edit/{id}','edit')->name('product.edit');
     Route::POST('/store','store')->name('product.store');
     Route::POST('/update','update')->name('product.update');
+    Route::POST('/destroy','destroy')->name('product.destroy');
 });
 
 Route::middleware('role:1')->prefix('categories')->controller(CategoryController::class)->group(function(){

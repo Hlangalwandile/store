@@ -51,7 +51,6 @@ class ProductController extends Controller
         
         if($request->file('image')){
             $imageLink = $request->file('image')->store('images','public');
-            $image->move(public_path('/images'),$image_name);
             $product->image = $imageLink;
         }
 
