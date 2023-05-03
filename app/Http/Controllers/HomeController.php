@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::all()->where('status',1);
         $categories = Category::all();
         return view('home',['products'=>$products,'categories'=>$categories]);
 

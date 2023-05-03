@@ -1,7 +1,9 @@
 @extends('layouts.dashboard')
 @section('content')
 <div class="card">
-    <div class="card-header"></div>
+    <div class="card-header">
+      <h2 class="card-title">Product Edit</h2>
+    </div>
     <div class="card-body">
         <form method="POST" action="{{ route('product.update') }}">
             @csrf
