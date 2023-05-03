@@ -16,7 +16,6 @@ Auth::routes([
     'verify'=> true,
 ]);
 
-
 Route::middleware('role:1')->prefix('products')->controller(ProductController::class)->group(function(){
     Route::get('/','index')->name('products');
     Route::get('/product','show')->name('product.show');
