@@ -17,7 +17,7 @@ Auth::routes([
 ]);
 
 
-Route::prefix('products')->controller(ProductController::class)->group(function(){
+Route::middleware('role:1')->prefix('products')->controller(ProductController::class)->group(function(){
     Route::get('/','index')->name('products');
     Route::get('/product','show')->name('product.show');
     Route::get('/create','create')->name('product.create');
@@ -26,7 +26,7 @@ Route::prefix('products')->controller(ProductController::class)->group(function(
     Route::POST('/update','update')->name('product.update');
 });
 
-Route::prefix('categories')->controller(CategoryController::class)->group(function(){
+Route::middleware('role:1')->prefix('categories')->controller(CategoryController::class)->group(function(){
     Route::get('/','index')->name('categories');
     Route::get('/category','show')->name('category.show');
     Route::get('/create','create')->name('category.create');
